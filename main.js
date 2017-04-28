@@ -99,7 +99,7 @@ class Entity{
 
 function addText(string, x,y, size, color){//color is a string eg. "red"
     Game.context.font = size+"px Arial";
-     context.fillStyle = color;
+    Game.context.fillStyle = color;
     return Game.context.fillText(string, x,y);
 }
 
