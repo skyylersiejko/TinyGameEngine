@@ -97,11 +97,11 @@ class Entity{
     
 }
 
-function collide(rect1,rect2){
-   if (rect1.x < rect2.x + rect2.width &&
-   rect1.x + rect1.width > rect2.x &&
-   rect1.y < rect2.y + rect2.height &&
-   rect1.height + rect1.y > rect2.y) {
+function collide(a,b){
+   if (a.x < b.x + b.width &&
+   a.x + a.width > b.x &&
+   a.y < b.y + b.height &&
+   a.height + a.y > b.y) {
         return true;
     }else{
         return false;
@@ -136,17 +136,11 @@ function update(){
     }
 
 
-     
-
-
 var lastTime;
 var HEIGHT = 400;
 var WIDTH = 400;
 var gameTime = 0;
 var keysDown = {};
-
-
-
 
 //Entities
 var ball =  new Entity(100,100, 50,50, "ball.png");
