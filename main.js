@@ -97,6 +97,12 @@ class Entity{
     
 }
 
+function addText(string, x,y, size, color){//color is a string eg. "red"
+    Game.context.font = size+"px Arial";
+     context.fillStyle = color;
+    return Game.context.fillText(string, x,y);
+}
+
 function collide(a,b){
    if (a.x < b.x + b.width &&
    a.x + a.width > b.x &&
@@ -126,7 +132,7 @@ function loadObjects(items){
         Game.context.drawImage(items[i].image, items[i].x,items[i].y, items[i].width, items[i].height);
     }
 }
-
+// game-loop
 function update(){
    loadObjects(sprites);
    ball.bounce();
