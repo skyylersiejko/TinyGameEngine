@@ -18,8 +18,8 @@ var requestAnimFrame = (function(){
 var Game = {
     canvas : document.createElement("canvas"),
     start: function() {
-        this.canvas.width = HEIGHT;
-        this.canvas.height = WIDTH;
+        this.canvas.width = WIDTH;
+        this.canvas.height = HEIGHT;
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.frameNo = 0;
