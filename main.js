@@ -97,6 +97,10 @@ class Entity{
     
 }
 
+function random(num){
+    return Math.floor(Math.random()*num);
+}
+
 function addText(string, x,y, size, color){//color is a string eg. "red"
     Game.context.font = size+"px Arial";
     Game.context.fillStyle = color;
