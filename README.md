@@ -13,4 +13,4 @@ NOTE:
 everything is drawn through sprite list
 
 TO-DO:
- add animations to class images for sprite-sheets
+ add camera feature
