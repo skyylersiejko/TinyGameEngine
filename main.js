@@ -80,6 +80,31 @@ class Entity{
         this.image = new Image();
         this.image.src = src;
         this.vector = new Vector(this.x+this.width/2, this.y+this.height/2, 1);
+        this.costume = this.animate({
+            context: Game.context,
+            width: this.width,
+            height: this.height,
+            image: this.image,
+            x: this.x,
+            y:this.y,
+            numberOfFrames: 4,
+            ticksPerFrame:5 });
+        this.assets= [
+            "img/character/frontIdle.png",
+            "img/character/backIdle.png",
+            "img/character/leftWalk.png",
+            "img/character/rightWalk.png",
+            "img/character/frontSlash.png",
+            "img/character/backSlash.png"];
+        this.action = {
+            "backSlash":["qb", 0,this.assets[5]], 
+            "frontSlash": ["qf", 1, this.assets[4]],
+            "leftWalk": ["la",0, this.assets[2]],
+            "rightWalk": ["ra",1, this.assets[3]],
+            "frontIdle": ["na",1, this.assets[0]],
+            "backIdle": ["na", 0, this.assets[1]]
+
+             };
     }
     
     bounce(){
@@ -94,8 +119,95 @@ class Entity{
         
     }
     
-    
+    animate(options){
+      var costume = {},
+            frameIndex = 0,
+            tickCount = 0,
+            ticksPerFrame = options.ticksPerFrame || 0,
+            numberOfFrames = options.numberOfFrames || 1;
+        
+        costume.context = options.context;
+        costume.width = options.width;
+        costume.height = options.height;
+        costume.image = options.image;
+        costume.x = options.x;
+        costume.y = options.y;
+
+        
+        costume.update = function () {
+            tickCount += 1;
+            if (tickCount > ticksPerFrame) {
+                tickCount = 0;
+                // If the current frame index is in range
+                if (frameIndex < numberOfFrames - 1) {  
+                    // Go to the next frame
+                    frameIndex += 1;
+                } else {
+                    frameIndex = 0;
+                }
+            }
+        };
+        
+        costume.render = function () {
+          // Draw the animation
+          Game.context.drawImage(
+            //scaled images.
+            costume.image,
+            (frameIndex * costume.width / numberOfFrames),
+            0,
+            (costume.width / numberOfFrames),
+            costume.height,
+            costume.x,
+            costume.y,
+            (costume.width / numberOfFrames),
+            costume.height);
+        };
+        return costume;
+     }
+ 
+    update(){
+        this.costume.x = this.x;
+        this.costume.y = this.y;
+        this.costume.render();
+        this.costume.update();   
+     	}   
 }
+
+
+function moveUpdate(obj, key){
+
+    var moves = getDicValues(obj.action);
+    // left is 0, right is 1
+        if (moves[0][0]== key && moves[0][1] == obj.vector.direction){
+                return moves[0][2];
+        }if ( moves[1][0]== key && moves[1][1] == obj.vector.direction){
+                return moves[1][2];
+        }if ( moves[2][0]== key && moves[2][1] == obj.vector.direction){
+                return moves[2][2];
+        }if ( moves[3][0]== key && moves[3][1] == obj.vector.direction){
+                return moves[3][2];
+        }else{
+            if (obj.vector.direction == 1){
+            return moves[4][2];
+        }else{
+            return moves[5][2];
+        }
+
+            }
+    }
+
+
+function checkDirection(a, b){
+    if (a.vector.direction == b.vector.direction || 
+        a.vector.direction == b.vector.direction[0] ||
+        a.vector.direction == b.vector.direction[1]){
+        return true;
+    } else{
+        return false;
+    }
+    }
+
+
 
 function random(num){
     return Math.floor(Math.random()*num);
