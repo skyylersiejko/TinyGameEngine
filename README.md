@@ -1,6 +1,6 @@
 
 # TinyGameEngine
-A super tiny game engine built in Javascript using canvas and Html5. 
+A super tiny game engine built in Javascript using canvas and HTML5. 
 
 FUNCTIONS:
 bounce(obj)- bounces object around screen (called through class method).
